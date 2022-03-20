@@ -216,6 +216,9 @@ class ComputeLoss:
                 # 这里的tbox[i]中的xy是这个target对当前grid_cell左上角的偏移量[0,1]  而pbox.T是一个归一化的值
                 # 就是要用这种方式训练 传回loss 修改梯度 让pbox越来越接近tbox(偏移量)
                 iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, CIoU=True)  # iou(prediction, target)
+                # iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, GIoU=True)  # iou(prediction, target)可以修改训练
+                # iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=False, DIoU=True)  # iou(prediction, target)可以替换训练
+
                 lbox += (1.0 - iou).mean()  # iou loss
 
                 # Objectness loss stpe1
